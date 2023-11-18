@@ -258,3 +258,4 @@ pip-selfcheck.json
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,webstorm,macos,visualstudiocode,venv
 
 __pycache__
+.idea
