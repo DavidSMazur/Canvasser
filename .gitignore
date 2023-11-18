@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/pycharm,webstorm,macos,visualstudiocode,venv
 # Edit at https://www.toptal.com/developers/gitignore?templates=pycharm,webstorm,macos,visualstudiocode,venv
 
+.env
+
 ### macOS ###
 # General
 .DS_Store
@@ -258,4 +260,5 @@ pip-selfcheck.json
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,webstorm,macos,visualstudiocode,venv
 
 __pycache__
+
 .idea
