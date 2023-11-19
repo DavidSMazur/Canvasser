@@ -28,6 +28,3 @@ def submit_file(token: str, file_path: str, course_id: str, assignment_id: str):
     # print(json_x)
     return json_x.get("submitted_at")
 
-
-# auth_token = ''
-# print(submit_file(auth_token, "empty_property.pdf", "309", "4554"))
