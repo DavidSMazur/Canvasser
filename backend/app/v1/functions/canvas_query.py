@@ -27,6 +27,8 @@ def get_assignment_info(auth_token: str, course: int):
         assignment_dict['description'] = description
         due_date = str(assignment.get('due_at'))
         assignment_dict['due_at'] = due_date
+        name = str(assignment.get('name'))
+        assignment_dict['name'] = name
         # try:
         #     rubric = assignment_dict.get('rubric')
         #     print(rubric)
