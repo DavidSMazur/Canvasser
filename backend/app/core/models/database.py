@@ -12,6 +12,11 @@ ca = certifi.where()
 
 dotenv.load_dotenv()
 
+def get_db():
+    uri = os.getenv('MONGO_COLLECTION_STRING')
+    client = MongoClient(uri, server_api=ServerApi('1'), tlsCAFile=ca)
+    db = client.Database
+    return db
 
 def ping_mongo():
     uri = os.getenv('MONGO_COLLECTION_STRING')

@@ -1,15 +1,24 @@
 import os
 from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 from langchain.vectorstores import MongoDBAtlasVectorSearch
 from langchain.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 import numpy as np
+import certifi
 
-from db import get_db
 import dotenv
 
 dotenv.load_dotenv()
+
+ca = certifi.where()
+
+def get_db():
+    uri = os.getenv('MONGO_COLLECTION_STRING')
+    client = MongoClient(uri, server_api=ServerApi('1'), tlsCAFile=ca)
+    db = client.MHacks
+    return db
 
 loader = PyMuPDFLoader("Quasixenon.pdf")
 documents = loader.load()
@@ -21,7 +30,7 @@ embeddings = OpenAIEmbeddings()
 db = get_db()
 client = db.client  # Get the MongoClient object
 # collection_name = "embeddings"
-collection_name = "embeds"
+collection_name = "embeddings"
 
 collection = db[collection_name]
 index_name = "default"
