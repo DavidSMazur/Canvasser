@@ -1,0 +1,306 @@
+openapi: 3.1.0
+info:
+  title: FastAPI
+  description: API for Canvassistant
+  version: '1.0'
+paths:
+  /v1/update/:
+    post:
+      tags:
+      - update
+      summary: Query Canvas
+      operationId: query_canvas_v1_update__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Canvas'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - OAuth2PasswordBearer: []
+  /v1/read_root/:
+    get:
+      tags:
+      - root
+      summary: Read Root
+      operationId: read_root_v1_read_root__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /v1/query/:
+    post:
+      tags:
+      - query
+      summary: Query
+      operationId: query_v1_query__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/display/:
+    post:
+      tags:
+      - display
+      summary: Query Courses
+      operationId: query_courses_v1_display__post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - OAuth2PasswordBearer: []
+  /v1/announcements/:
+    post:
+      tags:
+      - announcements
+      summary: Query Canvas
+      operationId: query_canvas_v1_announcements__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Canvas'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - OAuth2PasswordBearer: []
+  /v1/assignments/:
+    post:
+      tags:
+      - assignments
+      summary: Query Canvas
+      operationId: query_canvas_v1_assignments__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Canvas'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - OAuth2PasswordBearer: []
+  /v1/uploadfile/:
+    post:
+      tags:
+      - uploadfile
+      summary: Create Upload File
+      operationId: create_upload_file_v1_uploadfile__post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_create_upload_file_v1_uploadfile__post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/files/:
+    post:
+      tags:
+      - files
+      summary: Create File
+      operationId: create_file_v1_files__post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_create_file_v1_files__post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/submit/:
+    post:
+      tags:
+      - submit
+      summary: Submission
+      operationId: submission_v1_submit__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Submit'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - OAuth2PasswordBearer: []
+components:
+  schemas:
+    Body_create_file_v1_files__post:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_create_file_v1_files__post
+    Body_create_upload_file_v1_uploadfile__post:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_create_upload_file_v1_uploadfile__post
+    Canvas:
+      properties:
+        course:
+          type: integer
+          title: Course
+      type: object
+      required:
+      - course
+      title: Canvas
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    QueryRequest:
+      properties:
+        course_id:
+          type: string
+          title: Course Id
+        query_text:
+          type: string
+          title: Query Text
+      type: object
+      required:
+      - course_id
+      - query_text
+      title: QueryRequest
+    Submit:
+      properties:
+        file_path:
+          type: string
+          title: File Path
+        course_id:
+          type: string
+          title: Course Id
+        assignment_id:
+          type: string
+          title: Assignment Id
+      type: object
+      required:
+      - file_path
+      - course_id
+      - assignment_id
+      title: Submit
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    OAuth2PasswordBearer:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: token

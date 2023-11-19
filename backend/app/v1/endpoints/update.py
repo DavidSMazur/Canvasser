@@ -1,15 +1,19 @@
 # /v1/endpoints/update.py
 
 from fastapi import APIRouter
-from core.schemas.schema import Canvas
 from typing_extensions import Annotated
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
+from pydantic import BaseModel
 
 from v1.functions.canvas_query import get_assignment_info, get_announcements, get_courses
-from core.models.database import ping_mongo, retrieve_course
 from v1.functions.vectorizeMongo import vectorize_and_store
 
+
+class Canvas(BaseModel):
+    course: int
+
+    
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -31,4 +35,4 @@ async def query_canvas(item: Canvas, token: Annotated[str, Depends(oauth2_scheme
 
     vectorize_and_store(data_string)
 
-    return {"response": "Data insertion success"}
+    return {"response": "Data insertion success!"}
