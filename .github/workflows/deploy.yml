@@ -1,0 +1,30 @@
+name: Deploy OpenAPI Spec to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # or your default branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'  # specify your Python version
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt  # install your project dependencies
+
+    - name: Extract OpenAPI Spec
+        run: python extract-openapi.py main:app --out openapi.yaml
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ../backend/app/openapi.yaml 
