@@ -11,20 +11,16 @@
 # app = FastAPI()
 
 
-# class Canvas(BaseModel):
-#     course: int
-
-
-# # @app.get("/items/{item_id}")
-# # def read_item(item_id: int, q: Union[str, None] = None):
-# #     return {"item_id": item_id, "q": q}
-
 # @app.post("/v1/queryCanvas")
 # async def query_canvas(item: Canvas, token: Annotated[str, Depends(oauth2_scheme)]):
 #     assignment_info = getAssignmentInfo(token, item.course)
 #     return assignment_info
 
 # main.py
+# # @app.get("/items/{item_id}")
+# # def read_item(item_id: int, q: Union[str, None] = None):
+# #     return {"item_id": item_id, "q": q}
+
 
 from fastapi import FastAPI
 from v1.api import router as v1_router

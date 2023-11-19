@@ -1,6 +1,5 @@
-# from pydantic import BaseModel
+from pydantic import BaseModel
 
-# class ItemSchema(BaseModel):
-#     name: str
-#     description: str
-#     price: float
+
+class Canvas(BaseModel):
+    course: int
