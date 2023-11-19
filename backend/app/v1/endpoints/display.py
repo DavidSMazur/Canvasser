@@ -5,7 +5,7 @@ from typing_extensions import Annotated
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 
-from v1.functions.canvas_query import get_courses
+from app.v1.functions.canvas_query import get_courses
 
 
 router = APIRouter()

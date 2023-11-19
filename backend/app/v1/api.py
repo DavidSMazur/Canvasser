@@ -1,5 +1,8 @@
 # /v1/api.py
 
+# CI/CD autogenned docs deployed on github pages
+# https://www.doctave.com/blog/python-export-fastapi-openapi-spec
+
 from fastapi import APIRouter
 from .endpoints import update, read_root, query, display, announcements, assignments, uploadfile, files, submit
 
