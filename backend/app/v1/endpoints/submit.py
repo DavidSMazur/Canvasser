@@ -14,6 +14,6 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 @router.post("/")
-async def query_canvas(item: Submit, file: UploadFile, token: Annotated[str, Depends(oauth2_scheme)]):
-    file_response = submit_file(token, file, course_id, assignment_id)
+async def submission(course: Submit, token: Annotated[str, Depends(oauth2_scheme)]):
+    file_response = submit_file(token, course.file_path, course.course_id, course.assignment_id)
     return file_response
