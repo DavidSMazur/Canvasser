@@ -65,10 +65,12 @@ def get_courses(auth_token: str):
     print(response)
     response_obj = json.loads(response.content)
     for courses in response_obj:
-        print(courses)
+        # print(courses)
         course_dict = {}
         id = str(courses.get('id'))
-        course_dict['id'] = id
+        course_dict['course_id'] = id
+        user_id = str(courses.get('enrollments')[0].get('user_id'))
+        course_dict['user_id'] = user_id
         course_name = str(courses.get('name'))
         course_dict['course_name'] = course_name
         syllabus = cleanhtml(str(courses.get('syllabus_body'))).replace("\n", " ")
