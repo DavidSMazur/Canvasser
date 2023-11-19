@@ -22,9 +22,11 @@ jobs:
 
 
       - name: Extract OpenAPI spec
-        run: |
-          cd backend
-          python extract-openapi.py main:app --out openapi_generated.yaml
+        working-directory: ./backend
+        run: python extract-openapi.py main:app --out openapi_generated.yaml
+
+
+          
       # Do something with the generated spec here.
       # For example, validate that the committed spec matches the generated one.
       - name: Verify OpenAPI spec has been updated
