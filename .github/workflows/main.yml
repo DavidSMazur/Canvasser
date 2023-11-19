@@ -2,7 +2,8 @@
 name: CI
 
 on: [push]
-
+permissions:
+  contents: write
 jobs:
   extract-openapi:
     runs-on: ubuntu-latest
