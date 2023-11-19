@@ -21,9 +21,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Extract OpenAPI spec
-        working-directory: ./backend
+        # working-directory: ./backend
         run: |
-          cd backend
+          cd backend/app
           python extract-openapi.py main:app --out openapi_generated.yaml
 
 
