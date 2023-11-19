@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.v1.api import router as v1_router
+from v1.api import router as v1_router
 
 app = FastAPI(description="API for Canvassistant", version="1.0")
 

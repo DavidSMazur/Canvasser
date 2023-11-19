@@ -6,8 +6,8 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 
-from app.v1.functions.canvas_query import get_assignment_info, get_announcements, get_courses
-from app.v1.functions.vectorizeMongo import vectorize_and_store
+from v1.functions.canvas_query import get_assignment_info, get_announcements, get_courses
+from v1.functions.vectorizeMongo import vectorize_and_store
 
 
 class Canvas(BaseModel):
