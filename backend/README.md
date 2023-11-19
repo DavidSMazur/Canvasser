@@ -1,4 +1,4 @@
-# Canvasser
+# Canvassistant
 ```shell
 cd backend
 
@@ -17,4 +17,3 @@ Freezing pip packages
 ```shell
 pip freeze > requirements.txt
 ```
-
