@@ -8,10 +8,22 @@ import os
 from langchain.vectorstores import MongoDBAtlasVectorSearch
 from langchain.embeddings.openai import OpenAIEmbeddings
 import json
+from langchain.chains import LLMChain
+from langchain.llms import OpenAI
+from langchain.prompts import PromptTemplate
+from langchain.chat_models import ChatOpenAI
+from langchain.prompts import PromptTemplate
+from langchain.schema import StrOutputParser
+import re
 
 
 from fastapi import APIRouter
 import dotenv
+
+from openai import OpenAI
+ai_client = OpenAI()
+
+INSTRUCTION = "I just gave you a lot of data about assignments and announcements for the course I'm currently taking. I also provided a query that I want you to answer. Make sure you answer the query with correct punctuation and grammar. Try to be as friendly as possible."
 
 dotenv.load_dotenv()
 ca = certifi.where()
@@ -59,17 +71,45 @@ async def query(request: QueryRequest):
           }}
     ])
 
-
-# Convert the CommandCursor to a list and then to a string
+    # Convert the CommandCursor to a list and then to a string
     results_list = list(results)
     print(results_list[0].get("text"))
+
+
+    # Extract top 3 results
+    top_results = results_list[:1]
+
+    # Format results for use in OpenAI API (you might need to summarize or reformat this data)
+    formatted_results = [result.get("text") for result in top_results]
+    print(formatted_results)
+
+    formatted_results_no_brackets = ""
+
+    for res in formatted_results:
+        formatted_results_no_brackets += res.replace("{", "").replace("}", "").replace('"', "").replace("text: ", "") + " "
+
+    # print(formatted_results_no_brackets)
+
+    prompt = PromptTemplate.from_template(
+        "I am implementing a RAG model. As a result, I will give you the top 1 results from a similarity search and I will also provide you the query, Your job is to condense the top 1 results into 1 response that best answers the prompt. Here are the top 1 results formatted_results: " + str(formatted_results_no_brackets) + " Here is the query: {query} Remove any json tags like curly brackets, quotation marks or ID labels. The response should be a paragraph, made up of full sentences. Respond as if only the query was asked directly to you."
+    )
+
+
+    runnable = prompt | ChatOpenAI() | StrOutputParser()
+    response = runnable.invoke({"query": query})
+
+    # print(response)
+    
     # results_str = str(results_list)
 
     # print(json.dumps(str(results_list)))
     # for document in results:
     #     print(document.text)
 
-    return {"response": results_list[0].get("text")}
+    return {"response": response}
+
+    # return {"response": response.choices[0].message}
+    # return {"response": results_list[0].get("text")}
 
 
 # @router.post("/", response_model=ItemSchema)

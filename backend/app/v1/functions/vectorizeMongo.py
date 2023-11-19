@@ -53,6 +53,6 @@ def vectorize_and_store(data):
         index_name=index_name
     )
 
-    query = "What is a quasixenon?"
-    docs = vectordb.similarity_search(query)
+    # query = "What is a quasixenon?"
+    # docs = vectordb.similarity_search(query)
     # print(docs[0].page_content)
