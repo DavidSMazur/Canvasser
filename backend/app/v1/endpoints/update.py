@@ -7,6 +7,7 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 
 from v1.functions.canvas_query import get_assignment_info, get_announcements, get_courses
+from core.models.database import ping_mongo
 
 
 router = APIRouter()
@@ -20,6 +21,8 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 # async def query_canvas(item: Canvas, token: Annotated[str, Depends(oauth2_scheme)]):
 #     announcement_info = get_announcements(token, item.course)
 #     return announcement_info
-async def query_canvas(item: Canvas, token: Annotated[str, Depends(oauth2_scheme)]):
-    course_info = get_courses(token)
-    return course_info
+# async def query_canvas(item: Canvas, token: Annotated[str, Depends(oauth2_scheme)]):
+#     course_info = get_courses(token)
+#     return course_info
+async def mongo_test():
+    return ping_mongo()
